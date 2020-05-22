@@ -43,3 +43,6 @@ process.env.URLDB = urlDB;
 process.env.CLIENT_ID =
   process.env.CLIENT_ID ||
   "191061991826-vnts0jh4om8h68ck8181757vd4ptbtgu.apps.googleusercontent.com";
+
+//191061991826-vfb4uekrjht3nopivibnscp3l6d58995.apps.googleusercontent.com
+//"Not a valid origin for the client: https://hidden-falls-33317.herokuapp.com has not been whitelisted for client ID 191061991826-vfb4uekrjht3nopivibnscp3l6d58995.apps.googleusercontent.com. Please go to https://console.developers.google.com/ and whitelist this origin for your project's client ID."
