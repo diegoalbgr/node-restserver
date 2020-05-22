@@ -6,13 +6,18 @@ const _ = require("underscore");
 
 const Usuario = require("../models/usuario.js");
 
+const {
+  verificaToken,
+  verificaAdminRole,
+} = require("../middelwares/autenticacion.js");
+
 const app = express();
 
 app.get("/", function (req, res) {
   res.json("Hello World local");
 });
 
-app.get("/usuario", function (req, res) {
+app.get("/usuario", verificaToken, (req, res) => {
   let desde = req.query.desde || 0; //parametros opcionales vienen desde query.
 
   desde = Number(desde);
@@ -42,7 +47,7 @@ app.get("/usuario", function (req, res) {
     });
 });
 
-app.post("/usuario", function (req, res) {
+app.post("/usuario", [verificaToken, verificaAdminRole], function (req, res) {
   let body = req.body;
 
   let usuario = new Usuario({
@@ -69,7 +74,10 @@ app.post("/usuario", function (req, res) {
   });
 });
 
-app.put("/usuario/:id", function (req, res) {
+app.put("/usuario/:id", [verificaToken, verificaAdminRole], function (
+  req,
+  res
+) {
   let id = req.params.id;
 
   let body = _.pick(req.body, ["nombre", "email", "img", "role", "estado"]);
@@ -94,7 +102,10 @@ app.put("/usuario/:id", function (req, res) {
   );
 });
 
-app.delete("/usuario/:id", function (req, res) {
+app.delete("/usuario/:id", [verificaToken, verificaAdminRole], function (
+  req,
+  res
+) {
   let id = req.params.id;
 
   //Usuario.findByIdAndRemove(id, (err, usuarioBorrado) => {
